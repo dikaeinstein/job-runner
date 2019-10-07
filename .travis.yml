@@ -1,0 +1,15 @@
+language: go
+go:
+- 1.12.x
+- master
+dist: trusty
+env:
+- GO111MODULE=on
+before_install:
+- go get github.com/mattn/goveralls
+install: true
+script:
+- make fetch
+- make test-cover
+- goveralls -coverprofile=cover.out -service=travis-ci
+- make build
