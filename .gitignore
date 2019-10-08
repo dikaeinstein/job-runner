@@ -1,3 +1,5 @@
 vendor
 *.out
 .DS_Store
+**/server
+**/new_product/worker

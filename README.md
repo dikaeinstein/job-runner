@@ -5,27 +5,26 @@ An asynchronous job runner written in golang with redis and nats.io
 [![Build Status](https://travis-ci.com/dikaeinstein/job-runner.svg?branch=master)](https://travis-ci.com/dikaeinstein/job-runner)
 [![Coverage Status](https://coveralls.io/repos/github/dikaeinstein/job-runner/badge.svg?branch=master)](https://coveralls.io/github/dikaeinstein/job-runner?branch=master)
 
-## Run Locally
+## Run Locally (With docker-compose)
 
 Prerequisites:
 
 - make
 - Go 1.10+
+- docker
 
-Run in one terminal
+To start the REST api and the sample `new.product` worker
 
-```sh
-make run-server
-```
-
-then in another terminal
+Run:
 
 ```sh
-make run-worker
+make docker
 ```
 
 To test you can use apache bench to send sample requests to the REST api `/jobs` endpoint:
 
 ```sh
-ab -c 20 -n 10000 -p job.json -r -T application/json http://localhost:8912/jobs
+ab -c 50 -n 10000 -p job.json -r -T application/json http://localhost:8901/jobs
 ```
+
+You can tweak the `ab` flags as you wish

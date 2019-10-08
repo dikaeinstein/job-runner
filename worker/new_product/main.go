@@ -14,14 +14,13 @@ import (
 	"github.com/adjust/rmq"
 	nc "github.com/dikaeinstein/job-runner/nats"
 	"github.com/go-redis/redis"
-	"github.com/nats-io/nats.go"
 )
 
 func main() {
 	numOfConsumers := flag.Int("consumers", 1, "number of worker consumers")
 	flag.Parse()
 	natsName := fmt.Sprintf("job_runner %s NATS subscriber", Subject)
-	natsClient, err := nc.ConnectNATS(nats.DefaultURL, natsName)
+	natsClient, err := nc.ConnectNATS(os.Getenv("NATS"), natsName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,7 +53,7 @@ func main() {
 func setupRedisClient() *redis.Client {
 	return redis.NewClient(&redis.Options{
 		Network:      "tcp",
-		Addr:         "localhost:6379",
+		Addr:         os.Getenv("REDIS"),
 		DB:           1,
 		MaxRetries:   5,
 		DialTimeout:  time.Second * 15,

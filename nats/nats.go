@@ -16,7 +16,7 @@ func ConnectNATS(url, name string) (*nats.Conn, error) {
 	opts = setupConnOptions(opts)
 
 	log.Println("Connecting to NATS server")
-	nc, err := nats.Connect(nats.DefaultURL, opts...)
+	nc, err := nats.Connect(url, opts...)
 	if err != nil {
 		return nil, err
 	}
